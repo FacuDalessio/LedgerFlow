@@ -1,0 +1,5 @@
+# Local AI runtime state
+.atl/
+openspec/
+requirements.md
+ledgerflow-backend/target/
