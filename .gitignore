@@ -3,3 +3,4 @@
 openspec/
 requirements.md
 ledgerflow-backend/target/
+.vscode/
