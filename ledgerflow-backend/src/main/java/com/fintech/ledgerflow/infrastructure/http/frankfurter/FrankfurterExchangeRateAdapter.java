@@ -16,21 +16,21 @@ public class FrankfurterExchangeRateAdapter implements ExchangeRateProvider {
     }
 
     @Override
-    public ExchangeRate fetch(String baseCurrency, String quoteCurrency) {
+    public ExchangeRate fetch(String baseCurrency) {
         try {
-            FrankfurterRateResponse response = restClient.get()
-                    .uri(uriBuilder -> uriBuilder.path("/v2/rate/{base}/{quote}")
-                            .build(baseCurrency, quoteCurrency))
+            ExchangeRate response = restClient.get()
+                    .uri(uriBuilder -> uriBuilder.path("/v2/rate/{base}/USD")
+                            .build(baseCurrency))
                     .retrieve()
                     .onStatus(HttpStatusCode::isError, (request, statusResponse) -> {
                         throw new ExchangeRateUnavailableException(
                                 "Frankfurter returned status " + statusResponse.getStatusCode().value(), null);
                     })
-                    .body(FrankfurterRateResponse.class);
+                    .body(ExchangeRate.class);
             if (response == null) {
                 throw new ExchangeRateUnavailableException("Frankfurter returned an empty response", null);
             }
-            return new ExchangeRate(response.date(), response.base(), response.quote(), response.rate());
+            return response;
         } catch (ExchangeRateUnavailableException exception) {
             throw exception;
         } catch (RestClientException exception) {
