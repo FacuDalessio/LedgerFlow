@@ -7,3 +7,5 @@ spring:
     open-in-view: false
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master.yaml
+frankfurter:
+  base-url: ${FRANKFURTER_BASE_URL:https://api.frankfurter.dev}
