@@ -2,6 +2,7 @@ package com.fintech.ledgerflow.infrastructure.http.error;
 
 import com.fintech.ledgerflow.application.account.AccountConflictException;
 import com.fintech.ledgerflow.application.account.AccountNotFoundException;
+import com.fintech.ledgerflow.application.exchangerate.ExchangeRateUnavailableException;
 import jakarta.servlet.http.HttpServletRequest;
 import java.time.Instant;
 import java.util.LinkedHashMap;
@@ -37,6 +38,12 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(AccountConflictException.class)
     ResponseEntity<ApiError> conflict(AccountConflictException exception, HttpServletRequest request) {
         return response(HttpStatus.CONFLICT, exception.getMessage(), request, Map.of());
+    }
+
+    @ExceptionHandler(ExchangeRateUnavailableException.class)
+    ResponseEntity<ApiError> exchangeRateUnavailable(ExchangeRateUnavailableException exception,
+                                                     HttpServletRequest request) {
+        return response(HttpStatus.BAD_GATEWAY, exception.getMessage(), request, Map.of());
     }
 
     private ResponseEntity<ApiError> response(HttpStatus status, String message,
