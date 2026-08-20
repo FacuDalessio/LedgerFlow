@@ -1,7 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id: 001-create-accounts
-      author: ledgerflow
+      author: Facundo D'Alessio
       changes:
         - createTable:
             tableName: accounts

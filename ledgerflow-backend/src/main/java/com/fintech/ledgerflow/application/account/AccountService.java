@@ -8,6 +8,7 @@ import java.time.Clock;
 import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,7 +19,8 @@ public class AccountService implements AccountUseCase {
     private final AccountRepository repository;
     private final Clock clock;
 
-    public AccountService(AccountRepository repository) {
+    @Autowired
+    AccountService(AccountRepository repository) {
         this(repository, Clock.systemUTC());
     }
 
