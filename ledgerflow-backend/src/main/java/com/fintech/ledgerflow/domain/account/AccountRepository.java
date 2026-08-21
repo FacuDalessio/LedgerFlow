@@ -8,5 +8,6 @@ public interface AccountRepository {
     Account save(Account account);
     Optional<Account> findById(UUID id);
     List<Account> findAll();
+    Optional<Account> findByAccountNumber(String accountNumber);
     boolean existsByAccountNumber(String accountNumber);
 }

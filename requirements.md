@@ -77,15 +77,20 @@ The fee amount cannot be negative.
 The source account and destination account must exist.
 
 *Processing*
-The fee_amount must be 1% of the amount; otherwise, set state = FEE_DISCREPANCY.
-If the currency is different from USD, the system needs to obtain the exchange_rate and calculate the amount in USD (the same applies to the fee). Use the API call developed in Module C.
-If the amount is greater than or equal to 10,000, set state = SETTLED_PENDING_AUDIT; otherwise, set state = SETTLED_APPROVED.
+The fee_amount must equal 1% of the amount; otherwise, set state = FEE_DISCREPANCY.
+If the currency is different from USD, the system needs to obtain the exchange_rate and calculate the amount in USD (the same applies to the fee).
+If the amount is greater than or equal to 10,000 USD, set state = SETTLED_PENDING_AUDIT; otherwise, set state = SETTLED_APPROVED.
+
+*Exchange rate*
+Use the API call developed in Module C.
+When the system retrieves an exchange rate, it must save it in an in-memory cache so that another transaction can retrieve it faster.
+Delete the cache when the system finishes processing the entire file.
 
 *Fault Tolerance and Performance:*
 
-Implement chunk-oriented processing with a batch size of 1,000 records.
+Implement chunk-oriented processing with a chunk size of 1,000 records.
 
-Use retry strategies (up to three retries for database connection failures) and skip strategies (skip records with corrupted data formats by writing them to an error file named failed_transactions.log).
+Use retry strategies (up to three retries for database connection failures) and skip strategies to skip records with corrupted formats and write them to an error file named failed_transactions.log.
 
 *Module E:* Audit
 
@@ -123,7 +128,7 @@ Complete orchestration through docker-compose.yml. When `docker compose up` is e
 CI/CD pipeline configured in .github/workflows/ci-cd.yml that automatically executes: Build -> Run unit tests -> SonarQube code analysis.
 
 # 4. Repository Structure
-Ensure that the root of the GitHub project maintains the following structure:
+Ensure that the root of the GitHub project has the following structure:
 
 ledgerflow/
 ├── .github/
