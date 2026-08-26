@@ -7,8 +7,7 @@ import org.springframework.batch.infrastructure.item.file.builder.FlatFileItemRe
 import org.springframework.core.io.FileSystemResource;
 
 final class SettlementCsvReader {
-    private SettlementCsvReader() {
-    }
+    private SettlementCsvReader() {}
 
     static FlatFileItemReader<SettlementTransactionInput> create(String filePath) {
         return new FlatFileItemReaderBuilder<SettlementTransactionInput>()

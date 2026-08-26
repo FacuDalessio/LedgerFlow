@@ -24,7 +24,7 @@ import org.springframework.batch.core.configuration.annotation.EnableBatchProces
 import org.springframework.batch.core.configuration.annotation.JobScope;
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.core.job.builder.JobBuilder;
-import org.springframework.batch.core.launch.JobLauncher;
+import org.springframework.batch.core.launch.JobOperator;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.infrastructure.item.ItemProcessor;
@@ -123,7 +123,7 @@ public class SettlementBatchConfiguration {
     }
 
     @Bean
-    SettlementJobLauncher settlementJobLauncher(JobLauncher jobLauncher, Job settlementJob) {
+    SettlementJobLauncher settlementJobLauncher(JobOperator jobLauncher, Job settlementJob) {
         return (inputFile, errorFile) -> {
             JobParameters parameters = new JobParametersBuilder()
                     .addString("input.file", inputFile.toAbsolutePath().toString())

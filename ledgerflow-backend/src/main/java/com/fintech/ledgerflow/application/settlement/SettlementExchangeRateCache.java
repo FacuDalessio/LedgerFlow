@@ -5,7 +5,7 @@ import com.fintech.ledgerflow.domain.exchangerate.ExchangeRate;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public final class SettlementExchangeRateCache {
+public class SettlementExchangeRateCache {
     private final Map<String, ExchangeRate> rates = new ConcurrentHashMap<>();
 
     public ExchangeRate getOrFetch(String baseCurrency, ExchangeRateProvider provider) {

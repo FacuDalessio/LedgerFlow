@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
-public final class SettlementItemProcessor {
+public class SettlementItemProcessor {
     private final AccountRepository accountRepository;
     private final SettlementTransactionRepository transactionRepository;
     private final ExchangeRateProvider exchangeRateProvider;
