@@ -3,6 +3,8 @@ package com.fintech.ledgerflow.infrastructure.http.error;
 import com.fintech.ledgerflow.application.account.AccountConflictException;
 import com.fintech.ledgerflow.application.account.AccountNotFoundException;
 import com.fintech.ledgerflow.application.exchangerate.ExchangeRateUnavailableException;
+import com.fintech.ledgerflow.application.settlement.SettlementErrorLogPreparationException;
+import com.fintech.ledgerflow.application.settlement.SettlementInputUnavailableException;
 import jakarta.servlet.http.HttpServletRequest;
 import java.time.Instant;
 import java.util.LinkedHashMap;
@@ -28,6 +30,16 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({MethodArgumentTypeMismatchException.class, IllegalArgumentException.class})
     ResponseEntity<ApiError> badRequest(Exception exception, HttpServletRequest request) {
         return response(HttpStatus.BAD_REQUEST, exception.getMessage(), request, Map.of());
+    }
+
+    @ExceptionHandler(SettlementInputUnavailableException.class)
+    ResponseEntity<String> settlementInputUnavailable(SettlementInputUnavailableException exception) {
+        return ResponseEntity.badRequest().body(exception.getMessage());
+    }
+
+    @ExceptionHandler(SettlementErrorLogPreparationException.class)
+    ResponseEntity<String> settlementErrorLogPreparation(SettlementErrorLogPreparationException exception) {
+        return ResponseEntity.internalServerError().body(exception.getMessage());
     }
 
     @ExceptionHandler(AccountNotFoundException.class)
