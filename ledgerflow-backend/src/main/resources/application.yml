@@ -1,4 +1,9 @@
 spring:
+  batch:
+    job:
+      enabled: false
+    jdbc:
+      initialize-schema: always
   datasource:
     url: ${DB_URL:jdbc:postgresql://localhost:5432/ledgerflow}
     username: ${DB_USERNAME:ledgerflow}
@@ -9,3 +14,6 @@ spring:
     change-log: classpath:db/changelog/db.changelog-master.yaml
 frankfurter:
   base-url: ${FRANKFURTER_BASE_URL:https://api.frankfurter.dev}
+settlement:
+  input-directory: ${SETTLEMENT_INPUT_DIRECTORY:${java.io.tmpdir}/ledgerflow/settlements/input}
+  error-directory: ${SETTLEMENT_ERROR_DIRECTORY:${java.io.tmpdir}/ledgerflow/settlements/errors}
