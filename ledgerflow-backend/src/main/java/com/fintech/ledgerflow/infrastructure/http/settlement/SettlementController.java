@@ -1,6 +1,5 @@
 package com.fintech.ledgerflow.infrastructure.http.settlement;
 
-import com.fintech.ledgerflow.application.settlement.SettlementRun;
 import com.fintech.ledgerflow.application.settlement.SettlementUseCase;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
